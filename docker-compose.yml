@@ -1,0 +1,16 @@
+version: '3'
+services:
+  db:
+    image: mysql # 公式イメージを使う
+    volumes:
+      - ./mysql/db:/var/lib/mysql # データ永続化
+    environment:
+      MYSQL_ROOT_PASSWORD: password # パスワード設定
+    ports:
+      - "3306:3306"
+  back:
+    build: back
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
